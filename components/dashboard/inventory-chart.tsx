@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts"
 
 import {
   Card,
@@ -47,6 +47,24 @@ export function InventoryChart({ data, loading = false, className }: InventoryCh
   }
 
   const totalUnits = data.reduce((sum, item) => sum + item.quantity, 0)
+  const averageQuantity = totalUnits / data.length
+  const lowStockThreshold = averageQuantity * 0.5 // 50% below average
+
+  // Color bars based on stock level
+  const getBarColor = (quantity: number) => {
+    if (quantity < lowStockThreshold) {
+      return "hsl(var(--destructive))" // Red for low stock
+    }
+    if (quantity < averageQuantity) {
+      return "hsl(var(--warning))" // Orange/yellow for below average
+    }
+    return "hsl(var(--primary))" // Primary color for good stock
+  }
+
+  const lowStockCategories = data.filter(item => item.quantity < lowStockThreshold).length
+  const belowAverageCategories = data.filter(
+    item => item.quantity >= lowStockThreshold && item.quantity < averageQuantity
+  ).length
 
   return (
     <Card className={className}>
@@ -54,11 +72,17 @@ export function InventoryChart({ data, loading = false, className }: InventoryCh
         <CardTitle>Inventory by Category</CardTitle>
         <CardDescription>
           Total of {totalUnits.toLocaleString()} units across {data.length} categories
+          {lowStockCategories > 0 && (
+            <> • <span className="text-destructive font-medium">{lowStockCategories} low stock</span></>
+          )}
+          {belowAverageCategories > 0 && (
+            <> • <span className="text-warning font-medium">{belowAverageCategories} below average</span></>
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px] w-full">
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+        <ChartContainer config={chartConfig} className="h-[350px] w-full">
+          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} />
             <XAxis
               dataKey="category"
@@ -66,8 +90,9 @@ export function InventoryChart({ data, loading = false, className }: InventoryCh
               axisLine={false}
               angle={-45}
               textAnchor="end"
-              height={100}
-              tickMargin={8}
+              height={80}
+              interval={0}
+              tick={{ fontSize: 11 }}
             />
             <YAxis
               tickLine={false}
@@ -80,9 +105,12 @@ export function InventoryChart({ data, loading = false, className }: InventoryCh
             />
             <Bar
               dataKey="quantity"
-              fill="var(--color-quantity)"
               radius={[8, 8, 0, 0]}
-            />
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={getBarColor(entry.quantity)} />
+              ))}
+            </Bar>
           </BarChart>
         </ChartContainer>
       </CardContent>
