@@ -1,6 +1,6 @@
 "use client"
 
-import { Pie, PieChart, Cell, Legend, ResponsiveContainer } from "recharts"
+import { Pie, PieChart, Cell } from "recharts"
 
 import {
   Card,
@@ -13,6 +13,9 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
 } from "@/components/ui/chart"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { OrderStatusData } from "@/lib/types/dashboard"
@@ -24,6 +27,9 @@ interface OrderChartProps {
 }
 
 const chartConfig = {
+  count: {
+    label: "Orders",
+  },
   pending: {
     label: "Pending",
     color: "hsl(var(--chart-1))",
@@ -44,7 +50,7 @@ const chartConfig = {
     label: "Cancelled",
     color: "hsl(var(--chart-5))",
   },
-}
+} satisfies ChartConfig
 
 export function OrderChart({ data, loading = false, className }: OrderChartProps) {
   if (loading) {
@@ -73,37 +79,30 @@ export function OrderChart({ data, loading = false, className }: OrderChartProps
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[300px] w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Pie
-                data={data}
-                dataKey="count"
-                nameKey="status"
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                label={({ status, count }) =>
-                  `${status}: ${count}`
-                }
-                labelLine={false}
-              >
-                {data.map((entry) => (
-                  <Cell
-                    key={entry.status}
-                    fill={chartConfig[entry.status]?.color}
-                  />
-                ))}
-              </Pie>
-              <Legend
-                verticalAlign="bottom"
-                height={36}
-                formatter={(value) =>
-                  chartConfig[value as keyof typeof chartConfig]?.label || value
-                }
-              />
-            </PieChart>
-          </ResponsiveContainer>
+          <PieChart>
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Pie
+              data={data}
+              dataKey="count"
+              nameKey="status"
+              innerRadius={60}
+              strokeWidth={5}
+            >
+              {data.map((entry) => (
+                <Cell
+                  key={entry.status}
+                  fill={chartConfig[entry.status]?.color}
+                />
+              ))}
+            </Pie>
+            <ChartLegend
+              content={<ChartLegendContent nameKey="status" />}
+              className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+            />
+          </PieChart>
         </ChartContainer>
       </CardContent>
     </Card>
