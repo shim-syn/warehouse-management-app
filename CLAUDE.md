@@ -113,12 +113,17 @@ gh pr create --title "Title" --body "Description"
 # List PRs
 gh pr list
 
-# View PR status
-gh pr view
+# View PR status (use --json to avoid deprecated API errors)
+gh pr view <pr-number> --json title,state,url,mergeable,reviewDecision
+
+# Check if PR was merged
+gh pr view <pr-number> --json state,mergedAt,mergedBy,url
 
 # Merge PR (only after user approval)
-gh pr merge --merge
+gh pr merge <pr-number> --merge
 ```
+
+**Important**: Always use `gh pr view --json` with specific fields instead of plain `gh pr view` to avoid errors from GitHub's deprecated Projects (classic) API.
 
 ## Code Standards
 
