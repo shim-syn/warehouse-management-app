@@ -4,7 +4,8 @@ import type {
   Activity,
   DashboardKPIs,
   OrderStatusData,
-  OrderStatus
+  OrderStatus,
+  InventoryCategoryData
 } from '@/lib/types/dashboard'
 
 // Mock Products
@@ -363,4 +364,16 @@ export function getMockOrders(): Order[] {
 
 export function getMockActivities(): Activity[] {
   return mockActivities.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+}
+
+// Get inventory data by category for bar chart
+export function getInventoryCategoryData(): InventoryCategoryData[] {
+  const categoryTotals = mockProducts.reduce((acc, product) => {
+    acc[product.category] = (acc[product.category] || 0) + product.quantity
+    return acc
+  }, {} as Record<string, number>)
+
+  return Object.entries(categoryTotals)
+    .map(([category, quantity]) => ({ category, quantity }))
+    .sort((a, b) => b.quantity - a.quantity)
 }

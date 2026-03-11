@@ -49,3 +49,8 @@ export interface OrderStatusData {
   count: number
   fill: string
 }
+
+export interface InventoryCategoryData {
+  category: string
+  quantity: number
+}

@@ -9,10 +9,12 @@ import {
 import { KPICard } from "@/components/dashboard/kpi-card"
 import { ActivityFeed } from "@/components/dashboard/activity-feed"
 import { OrderChart } from "@/components/dashboard/order-chart"
+import { InventoryChart } from "@/components/dashboard/inventory-chart"
 import {
   getDashboardKPIs,
   getMockActivities,
   getOrderStatusData,
+  getInventoryCategoryData,
 } from "@/lib/mock-data/dashboard"
 
 export const metadata: Metadata = {
@@ -43,6 +45,7 @@ export default function DashboardPage() {
   const kpis = getDashboardKPIs()
   const activities = getMockActivities()
   const orderStatusData = getOrderStatusData()
+  const inventoryCategoryData = getInventoryCategoryData()
 
   return (
     <div className="space-y-6 p-6">
@@ -87,6 +90,9 @@ export default function DashboardPage() {
         <OrderChart data={orderStatusData} />
         <ActivityFeed activities={activities} maxItems={8} />
       </div>
+
+      {/* Inventory Bar Chart */}
+      <InventoryChart data={inventoryCategoryData} />
     </div>
   )
 }
