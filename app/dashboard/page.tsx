@@ -48,17 +48,17 @@ export default function DashboardPage() {
   const inventoryCategoryData = getInventoryCategoryData()
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* Page Header */}
-      <div className="space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <p className="text-muted-foreground">
+      <div className="space-y-1">
+        <h2 className="text-2xl font-bold tracking-tight">Dashboard</h2>
+        <p className="text-sm text-muted-foreground">
           Welcome to your warehouse management dashboard
         </p>
       </div>
 
       {/* KPI Cards Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KPICard
           title="Total Products"
           value={kpis.totalProducts}
@@ -86,7 +86,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Content Grid - Chart and Activity Feed */}
-      <div className="grid gap-6 xl:grid-cols-2">
+      <div className="grid gap-4 xl:grid-cols-2">
         <OrderChart data={orderStatusData} />
         <ActivityFeed activities={activities} maxItems={8} />
       </div>

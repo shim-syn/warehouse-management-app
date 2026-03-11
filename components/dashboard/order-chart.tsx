@@ -71,14 +71,14 @@ export function OrderChart({ data, loading = false, className }: OrderChartProps
 
   return (
     <Card className={className}>
-      <CardHeader>
-        <CardTitle>Order Status Overview</CardTitle>
-        <CardDescription>
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">Order Status Overview</CardTitle>
+        <CardDescription className="text-xs">
           Distribution of {totalOrders} orders across different statuses
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+        <ChartContainer config={chartConfig} className="h-[260px] w-full">
           <PieChart>
             <ChartTooltip
               cursor={false}
@@ -88,8 +88,8 @@ export function OrderChart({ data, loading = false, className }: OrderChartProps
               data={data}
               dataKey="count"
               nameKey="status"
-              innerRadius={60}
-              strokeWidth={5}
+              innerRadius={50}
+              strokeWidth={4}
             >
               {data.map((entry) => (
                 <Cell

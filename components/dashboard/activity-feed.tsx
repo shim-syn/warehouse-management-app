@@ -75,8 +75,8 @@ export function ActivityFeed({
 
   return (
     <Card className={className}>
-      <CardHeader>
-        <CardTitle>Recent Activity</CardTitle>
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">Recent Activity</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         {loading ? (
@@ -91,8 +91,8 @@ export function ActivityFeed({
           </div>
         ) : (
           <>
-            <ScrollArea className="h-[400px]">
-              <div className="space-y-1">
+            <ScrollArea className="h-[310px]">
+              <div className="space-y-0">
                 {displayActivities.map((activity) => {
                   const config = activityConfig[activity.type]
                   const Icon = config.icon
@@ -101,31 +101,31 @@ export function ActivityFeed({
                     <div
                       key={activity.id}
                       className={cn(
-                        "flex gap-3 p-3 transition-colors hover:bg-muted/50",
+                        "flex gap-2.5 p-2.5 transition-colors hover:bg-muted/50",
                         "border-b last:border-b-0"
                       )}
                     >
                       <div
                         className={cn(
-                          "flex size-8 shrink-0 items-center justify-center rounded-full bg-muted",
+                          "flex size-7 shrink-0 items-center justify-center rounded-full bg-muted",
                           config.color
                         )}
                       >
-                        <HugeiconsIcon icon={Icon} className="size-4" strokeWidth={2} />
+                        <HugeiconsIcon icon={Icon} className="size-3.5" strokeWidth={2} />
                       </div>
-                      <div className="flex-1 space-y-1">
+                      <div className="flex-1 space-y-0.5">
                         <div className="flex items-start justify-between gap-2">
-                          <p className="text-sm font-medium leading-none">
+                          <p className="text-xs font-medium leading-none">
                             {activity.title}
                           </p>
-                          <Badge variant={config.badgeVariant} className="shrink-0 text-xs">
+                          <Badge variant={config.badgeVariant} className="shrink-0 text-[10px] px-1.5 py-0">
                             {activity.type.replace(/_/g, " ")}
                           </Badge>
                         </div>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-xs text-muted-foreground">
                           {activity.description}
                         </p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-[10px] text-muted-foreground">
                           {formatDistanceToNow(activity.timestamp, { addSuffix: true })}
                         </p>
                       </div>
@@ -134,10 +134,10 @@ export function ActivityFeed({
                 })}
               </div>
             </ScrollArea>
-            <div className="border-t p-3">
+            <div className="border-t p-2.5">
               <Link
                 href="/dashboard/activity"
-                className="text-sm font-medium text-primary hover:underline"
+                className="text-xs font-medium text-primary hover:underline"
               >
                 View all activity →
               </Link>

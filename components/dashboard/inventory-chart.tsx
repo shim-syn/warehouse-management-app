@@ -27,7 +27,38 @@ interface InventoryChartProps {
 const chartConfig = {
   quantity: {
     label: "Units in Stock",
-    color: "hsl(var(--primary))",
+  },
+  herbicides: {
+    label: "Herbicides",
+    color: "hsl(var(--chart-1))",
+  },
+  fungicides: {
+    label: "Fungicides",
+    color: "hsl(var(--chart-2))",
+  },
+  adjuvants: {
+    label: "Adjuvants",
+    color: "hsl(var(--chart-3))",
+  },
+  growthRegulators: {
+    label: "Growth Regulators",
+    color: "hsl(var(--chart-4))",
+  },
+  bundles: {
+    label: "Bundles",
+    color: "hsl(var(--chart-5))",
+  },
+  insecticides: {
+    label: "Insecticides",
+    color: "hsl(280, 65%, 55%)",
+  },
+  seedTreatments: {
+    label: "Seed Treatments",
+    color: "hsl(180, 60%, 50%)",
+  },
+  nutrients: {
+    label: "Nutrients",
+    color: "hsl(45, 85%, 55%)",
   },
 } satisfies ChartConfig
 
@@ -47,52 +78,44 @@ export function InventoryChart({ data, loading = false, className }: InventoryCh
   }
 
   const totalUnits = data.reduce((sum, item) => sum + item.quantity, 0)
-  const averageQuantity = totalUnits / data.length
-  const lowStockThreshold = averageQuantity * 0.5 // 50% below average
 
-  // Color bars based on stock level
-  const getBarColor = (quantity: number) => {
-    if (quantity < lowStockThreshold) {
-      return "hsl(var(--destructive))" // Red for low stock
-    }
-    if (quantity < averageQuantity) {
-      return "hsl(var(--warning))" // Orange/yellow for below average
-    }
-    return "hsl(var(--primary))" // Primary color for good stock
+  // Vibrant color palette for each category
+  const categoryColors: Record<string, string> = {
+    "Herbicides": "hsl(var(--chart-1))",
+    "Fungicides": "hsl(var(--chart-2))",
+    "Adjuvants": "hsl(var(--chart-3))",
+    "Growth Regulators": "hsl(var(--chart-4))",
+    "Bundles": "hsl(var(--chart-5))",
+    "Insecticides": "hsl(280, 65%, 55%)",
+    "Seed Treatments": "hsl(180, 60%, 50%)",
+    "Nutrients": "hsl(45, 85%, 55%)",
   }
 
-  const lowStockCategories = data.filter(item => item.quantity < lowStockThreshold).length
-  const belowAverageCategories = data.filter(
-    item => item.quantity >= lowStockThreshold && item.quantity < averageQuantity
-  ).length
+  const getBarColor = (category: string) => {
+    return categoryColors[category] || "hsl(var(--primary))"
+  }
 
   return (
     <Card className={className}>
-      <CardHeader>
-        <CardTitle>Inventory by Category</CardTitle>
-        <CardDescription>
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg">Inventory by Category</CardTitle>
+        <CardDescription className="text-xs">
           Total of {totalUnits.toLocaleString()} units across {data.length} categories
-          {lowStockCategories > 0 && (
-            <> • <span className="text-destructive font-medium">{lowStockCategories} low stock</span></>
-          )}
-          {belowAverageCategories > 0 && (
-            <> • <span className="text-warning font-medium">{belowAverageCategories} below average</span></>
-          )}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[350px] w-full">
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <ChartContainer config={chartConfig} className="h-[280px] w-full">
+          <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 65 }}>
+            <CartesianGrid strokeDasharray="3 3" vertical={false} className="stroke-muted" />
             <XAxis
               dataKey="category"
               tickLine={false}
               axisLine={false}
               angle={-45}
               textAnchor="end"
-              height={80}
+              height={65}
               interval={0}
-              tick={{ fontSize: 11 }}
+              tick={{ fontSize: 10 }}
             />
             <YAxis
               tickLine={false}
@@ -100,15 +123,15 @@ export function InventoryChart({ data, loading = false, className }: InventoryCh
               tickFormatter={(value) => `${value}`}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
+              cursor={{ fill: "hsl(var(--muted))" }}
+              content={<ChartTooltipContent />}
             />
             <Bar
               dataKey="quantity"
-              radius={[8, 8, 0, 0]}
+              radius={[6, 6, 0, 0]}
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={getBarColor(entry.quantity)} />
+                <Cell key={`cell-${index}`} fill={getBarColor(entry.category)} />
               ))}
             </Bar>
           </BarChart>
