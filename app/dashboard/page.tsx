@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import {
   Package01Icon,
   Alert01Icon,
@@ -13,6 +14,30 @@ import {
   getMockActivities,
   getOrderStatusData,
 } from "@/lib/mock-data/dashboard"
+
+export const metadata: Metadata = {
+  title: "Dashboard - Syngenta Warehouse Management",
+  description: "Real-time warehouse management dashboard with inventory tracking, order status overview, and activity monitoring for Syngenta operations.",
+  openGraph: {
+    title: "Dashboard - Syngenta Warehouse Management",
+    description: "Real-time warehouse management dashboard with inventory tracking, order status overview, and activity monitoring for Syngenta operations.",
+    type: "website",
+    images: [
+      {
+        url: "/og/dashboard-og.png",
+        width: 1280,
+        height: 720,
+        alt: "Syngenta Warehouse Management Dashboard",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dashboard - Syngenta Warehouse Management",
+    description: "Real-time warehouse management dashboard with inventory tracking, order status overview, and activity monitoring.",
+    images: ["/og/dashboard-og.png"],
+  },
+}
 
 export default function DashboardPage() {
   const kpis = getDashboardKPIs()

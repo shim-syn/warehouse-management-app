@@ -1,4 +1,10 @@
+import type { Metadata } from "next"
 import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "Syngenta Warehouse Management",
+  description: "A modern warehouse management solution built with excellence and precision. Coming soon.",
+}
 
 export default function Page() {
   return (
