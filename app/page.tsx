@@ -1,18 +1,37 @@
-import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default function Page() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <div className="flex min-h-screen items-center justify-center p-6">
+      <div className="flex max-w-2xl flex-col items-center gap-12 text-center">
+        {/* Syngenta Logo */}
+        <div className="relative h-24 w-64">
+          <Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Syngenta_Logo.svg/3840px-Syngenta_Logo.svg.png"
+            alt="Syngenta Logo"
+            fill
+            className="object-contain"
+            priority
+          />
         </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
+
+        {/* Coming Soon Message */}
+        <div className="flex flex-col gap-6">
+          <h1 className="text-5xl font-semibold tracking-tight text-foreground sm:text-6xl">
+            Warehouse Management App
+          </h1>
+          <p className="text-2xl font-light text-muted-foreground">
+            Landing Soon
+          </p>
         </div>
+
+        {/* Subtitle */}
+        <p className="max-w-md text-base text-muted-foreground">
+          A modern warehouse management solution built with excellence and precision.
+        </p>
+
+        {/* Decorative accent line */}
+        <div className="h-1 w-24 rounded-full bg-gradient-to-r from-primary via-accent to-secondary" />
       </div>
     </div>
   )
