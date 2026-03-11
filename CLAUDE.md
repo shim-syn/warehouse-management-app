@@ -25,6 +25,7 @@ This is a warehouse management application for Syngenta built with modern web te
 ## Tech Stack
 - **Framework**: Next.js 15+ (App Router)
 - **Language**: TypeScript (strict mode)
+- **Package Manager**: Bun (always use `bun` instead of `npm` or `yarn`)
 - **Styling**: Tailwind CSS v4
 - **UI Components**: shadcn/ui
 - **Icons**: @hugeicons/react
@@ -43,10 +44,10 @@ This is a warehouse management application for Syngenta built with modern web te
 
 2. **Development**
    - Make changes incrementally
-   - Test locally: `npm run dev`
-   - Run type checks: `npm run typecheck`
-   - Run linting: `npm run lint`
-   - Format code: `npm run format`
+   - Test locally: `bun run dev`
+   - Run type checks: `bun run typecheck`
+   - Run linting: `bun run lint`
+   - Format code: `bun run format`
 
 3. **Commit and Push Changes**
    ```bash
@@ -179,9 +180,9 @@ lib/
 
 ### Adding Components
 ```bash
-npx shadcn@latest add button
-npx shadcn@latest add card
-npx shadcn@latest add dialog
+bunx shadcn@latest add button
+bunx shadcn@latest add card
+bunx shadcn@latest add dialog
 ```
 
 ### Customization
@@ -231,6 +232,7 @@ vercel inspect <deployment-url>
 - Real-time updates (consider WebSockets or Server-Sent Events)
 
 ## Notes
+- **IMPORTANT**: Always use `bun` for all package management and script commands
 - Always create feature branches for new work
 - Share Vercel preview URLs with stakeholders before merging
 - Maintain the Apple-inspired minimalist aesthetic
