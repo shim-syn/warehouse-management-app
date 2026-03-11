@@ -22,6 +22,8 @@
     --accent-foreground: oklch(0.98 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: oklch(0.98 0 0);
+    --warning: oklch(0.75 0.15 60); /* Orange/yellow for warnings */
+    --warning-foreground: oklch(0.15 0 0);
     --border: oklch(0.92 0.005 264);
     --input: oklch(0.95 0.005 264);
     --ring: oklch(0.45 0.18 305); /* Syngenta Purple for focus */
@@ -59,6 +61,8 @@
     --accent-foreground: oklch(0.98 0 0);
     --destructive: oklch(0.704 0.191 22.216);
     --destructive-foreground: oklch(0.98 0 0);
+    --warning: oklch(0.80 0.15 70); /* Lighter orange for dark mode */
+    --warning-foreground: oklch(0.15 0 0);
     --border: oklch(1 0 0 / 12%);
     --input: oklch(1 0 0 / 18%);
     --ring: oklch(0.55 0.20 305); /* Syngenta Purple for focus */
@@ -96,6 +100,7 @@
     --color-input: var(--input);
     --color-border: var(--border);
     --color-destructive: var(--destructive);
+    --color-warning: var(--warning);
     --color-accent-foreground: var(--accent-foreground);
     --color-accent: var(--accent);
     --color-muted-foreground: var(--muted-foreground);
