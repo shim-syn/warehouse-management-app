@@ -1,4 +1,4 @@
-# Next.js template
+# warehouse-management-app
 
 This is a Next.js template with shadcn/ui.
 
